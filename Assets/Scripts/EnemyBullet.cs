@@ -26,6 +26,6 @@ public class EnemyBullet : MonoBehaviour
     private void Fire()
     {
         myRigidbody2D.velocity = Vector2.down * speed;
-        Debug.Log("Wwweeeeee");
+        // Debug.Log("Wwweeeeee");
     }
 }

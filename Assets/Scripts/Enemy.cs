@@ -10,10 +10,12 @@ public class Enemy : MonoBehaviour
     public int pointsForKill;
     public Transform shottingOffset;
     public GameObject bullet;
+    public AudioClip deathSound;
 
 
     private Animator myAni;
     private Collider2D myCollider2D;
+    private AudioSource myAudio;
     private static readonly int Death = Animator.StringToHash("Death");
     
 
@@ -22,6 +24,7 @@ public class Enemy : MonoBehaviour
     {
         myAni = GetComponent<Animator>();
         myCollider2D = GetComponent<Collider2D>();
+        myAudio = GetComponent<AudioSource>();
         StartCoroutine(shootBullet());
     }
     
@@ -37,19 +40,15 @@ public class Enemy : MonoBehaviour
             myCollider2D.enabled = !myCollider2D.enabled;
             //update score
             ScoreManager.score += pointsForKill;
+            //play death sound
+            myAudio.PlayOneShot(deathSound);
             //death animation
             myAni.SetTrigger(Death);
             //destory this
             Destroy(this.gameObject, 1f);
         }
     }
-
-
-    private void Update()
-    {
-        
-    }
-
+    
 
     IEnumerator shootBullet()
     {
